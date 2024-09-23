@@ -46,7 +46,56 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+
+			
+			signup: async (email, password) =>  {
+				try {
+					const response = await fetch('https://turbo-spork-v6p9xg7r7qrpfw76w-3001.app.github.dev/api/signup', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ 
+							email: email,
+							password: password,
+							is_active: true
+						 })
+					});
+			
+					if (!response.ok) {
+						const errorData = await response.json();
+						throw new Error(errorData.msg || 'Error en el signup');
+					}
+			
+					const data = await response.json();
+					console.log('Signup exitoso:', data);
+				} catch (error) {
+					console.error('Error:', error.message);
+				}
+			},
+
+			login: async (email, password) =>  {
+				try {
+					const response = await fetch('https://turbo-spork-v6p9xg7r7qrpfw76w-3001.app.github.dev/api/login', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ 
+							email: email,
+							password: password
+						 })
+					});
+			
+					if (!response.ok) {
+						const errorData = await response.json();
+						throw new Error(errorData.msg || 'Error en el login');
+					}
+			
+					const data = await response.json();
+					console.log('Login exitoso:', data);
+				} catch (error) {
+					console.error('Error:', error.message);
+				}
 			}
+			
 		}
 	};
 };
