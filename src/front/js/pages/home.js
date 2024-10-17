@@ -15,6 +15,9 @@ export const Home = () => {
 			</Link>
 			<Link to={"/login"}>
 			<button className="btn btn-primary ms-3">Iniciar Sesion</button>
+			</Link><br></br>
+			<Link to={"/private"}>
+			<span>privado</span>
 			</Link>
 		</div>
 	);

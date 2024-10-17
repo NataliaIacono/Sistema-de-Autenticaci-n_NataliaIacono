@@ -1,8 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const Private= () => {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate("/login"); // Redirigir si no hay token
+        }
+    }, [navigate]);
    
 
     return (

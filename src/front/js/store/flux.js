@@ -22,14 +22,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return data;
-				}catch(error){
+				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
@@ -48,54 +48,58 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 
-			
-			signup: async (email, password) =>  {
-				
-					const response = await fetch('https://turbo-spork-v6p9xg7r7qrpfw76w-3001.app.github.dev/api/signup', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({ 
-							email: email,
-							password: password,
-							is_active: true
-						 })
-					});
-			
-					if (!response.ok) {
-						const errorData = await response.json();
-						throw new Error(errorData.msg || 'Error en el signup');
-					}
-			
-					const data = await response.json();
-					console.log('Signup exitoso:', data);
-					alert('Registro exitoso!')
-				
+
+			signup: async (email, password) => {
+
+				const response = await fetch('https://turbo-spork-v6p9xg7r7qrpfw76w-3001.app.github.dev/api/signup', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						email: email,
+						password: password,
+						is_active: true
+					})
+				});
+
+				if (!response.ok) {
+					const errorData = await response.json();
+					throw new Error(errorData.msg || 'Error en el signup');
+				}
+
+				const data = await response.json();
+				console.log('Signup exitoso:', data);
+				alert('Registro exitoso!')
+
 			},
 
-			login: async (email, password) =>  {
-				
-					const response = await fetch('https://turbo-spork-v6p9xg7r7qrpfw76w-3001.app.github.dev/api/login', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({ 
-							email: email,
-							password: password
-						 })
-					});
-			
-					if (!response.ok) {
-						const errorData = await response.json();
-						throw new Error(errorData.msg || 'Error en el login');
-					}
-			
-					const data = await response.json();
-					localStorage.setItem("token", data.token)
-					console.log('Login exitoso:', data); 
-				
-			}
+			login: async (email, password) => {
+
+				const response = await fetch('https://turbo-spork-v6p9xg7r7qrpfw76w-3001.app.github.dev/api/login', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						email: email,
+						password: password
+					})
+				});
+
+				if (!response.ok) {
+					const errorData = await response.json();
+					throw new Error(errorData.msg || 'Error en el login');
+				}
+
+				const data = await response.json();
+				localStorage.setItem("token", data.token)
+				console.log('Login exitoso:', data);
+
+			},
+
+
 			
 		}
-	};
+
+	}
+
 };
 
 export default getState;
