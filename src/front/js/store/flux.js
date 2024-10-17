@@ -50,7 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			
 			signup: async (email, password) =>  {
-				try {
+				
 					const response = await fetch('https://turbo-spork-v6p9xg7r7qrpfw76w-3001.app.github.dev/api/signup', {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
@@ -68,13 +68,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 					const data = await response.json();
 					console.log('Signup exitoso:', data);
-				} catch (error) {
-					console.error('Error:', error.message);
-				}
+					alert('Registro exitoso!')
+				
 			},
 
 			login: async (email, password) =>  {
-				try {
+				
 					const response = await fetch('https://turbo-spork-v6p9xg7r7qrpfw76w-3001.app.github.dev/api/login', {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
@@ -90,10 +89,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 			
 					const data = await response.json();
-					console.log('Login exitoso:', data);
-				} catch (error) {
-					console.error('Error:', error.message);
-				}
+					localStorage.setItem("token", data.token)
+					console.log('Login exitoso:', data); 
+				
 			}
 			
 		}
