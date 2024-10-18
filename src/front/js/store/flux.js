@@ -94,6 +94,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
+			autentificar: async () => {
+				const token = localStorage.getItem("token");
+			
+				if (!token) {
+					return false; // No token found
+				}
+			
+				try {
+					const response = await fetch('https://turbo-spork-v6p9xg7r7qrpfw76w-3001.app.github.dev/api/private', {
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+							'Authorization': `Bearer ${token}`
+						}
+					});
+			
+					if (!response.ok) {
+						localStorage.removeItem("token");
+						return false; // Invalid token
+					}
+			
+					return true; // Token is valid
+				} catch (error) {
+					console.error("Error verifying token:", error);
+					localStorage.removeItem("token");
+					return false; // Error during verification
+				}
+			},
+			
+
 
 			
 		}
